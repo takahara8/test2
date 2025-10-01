@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Calendar, Clock, Settings, FileText, Plus, Trash2, Edit2, X } from 'lucide-react';
 
 interface TimeEntry {
