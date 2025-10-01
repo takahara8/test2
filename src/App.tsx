@@ -186,12 +186,14 @@ const App = () => {
           <h3 className="text-lg font-semibold mb-4">新規記録</h3>
           <div className="flex gap-4 flex-wrap">
             <input
+              key="senderName"
               type="date"
               value={newEntry.date}
               onChange={(e) => setNewEntry({ ...newEntry, date: e.target.value })}
               className="px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
             />
             <input
+              key="senderName"
               type="number"
               placeholder="勤務時間"
               value={newEntry.hours || ''}
@@ -228,6 +230,7 @@ const App = () => {
                     <td className="py-3 px-4">
                       {editingId === entry.id ? (
                         <input
+                          key="senderName"
                           type="number"
                           defaultValue={entry.hours}
                           onKeyDown={(e) => {
@@ -292,6 +295,7 @@ const App = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">月額報酬（円）</label>
               <input
+                key="senderName"
                 type="number"
                 value={contract.monthlyFee}
                 onChange={(e) => setContract({ ...contract, monthlyFee: parseInt(e.target.value) || 0 })}
@@ -301,6 +305,7 @@ const App = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">基準時間（時間/月）</label>
               <input
+                key="senderName"
                 type="number"
                 value={contract.baseHours}
                 onChange={(e) => setContract({ ...contract, baseHours: parseInt(e.target.value) || 0 })}
@@ -321,6 +326,7 @@ const App = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">氏名</label>
               <input
+                key="senderName"
                 type="text"
                 value={invoiceInfo.senderName}
                 onChange={(e) => setInvoiceInfo({ ...invoiceInfo, senderName: e.target.value })}
@@ -330,6 +336,7 @@ const App = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">住所</label>
               <input
+                key="senderName"
                 type="text"
                 value={invoiceInfo.senderAddress}
                 onChange={(e) => setInvoiceInfo({ ...invoiceInfo, senderAddress: e.target.value })}
@@ -340,6 +347,7 @@ const App = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">電話番号</label>
                 <input
+                  key="senderName"
                   type="tel"
                   value={invoiceInfo.senderPhone}
                   onChange={(e) => setInvoiceInfo({ ...invoiceInfo, senderPhone: e.target.value })}
@@ -349,6 +357,7 @@ const App = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">メールアドレス</label>
                 <input
+                  key="senderName"
                   type="email"
                   value={invoiceInfo.senderEmail}
                   onChange={(e) => setInvoiceInfo({ ...invoiceInfo, senderEmail: e.target.value })}
@@ -366,6 +375,7 @@ const App = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">銀行名</label>
                 <input
+                  key="senderName"
                   type="text"
                   value={invoiceInfo.bankName}
                   onChange={(e) => setInvoiceInfo({ ...invoiceInfo, bankName: e.target.value })}
@@ -375,6 +385,7 @@ const App = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">支店名</label>
                 <input
+                  key="senderName"
                   type="text"
                   value={invoiceInfo.branchName}
                   onChange={(e) => setInvoiceInfo({ ...invoiceInfo, branchName: e.target.value })}
@@ -397,6 +408,7 @@ const App = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">口座番号</label>
                 <input
+                  key="senderName"
                   type="text"
                   value={invoiceInfo.accountNumber}
                   onChange={(e) => setInvoiceInfo({ ...invoiceInfo, accountNumber: e.target.value })}
@@ -407,6 +419,7 @@ const App = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">口座名義</label>
               <input
+                key="senderName"
                 type="text"
                 value={invoiceInfo.accountHolder}
                 onChange={(e) => setInvoiceInfo({ ...invoiceInfo, accountHolder: e.target.value })}
@@ -422,6 +435,7 @@ const App = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">会社名</label>
               <input
+                key="senderName"
                 type="text"
                 value={invoiceInfo.clientCompany}
                 onChange={(e) => setInvoiceInfo({ ...invoiceInfo, clientCompany: e.target.value })}
@@ -431,6 +445,7 @@ const App = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">担当者名</label>
               <input
+                key="senderName"
                 type="text"
                 value={invoiceInfo.clientName}
                 onChange={(e) => setInvoiceInfo({ ...invoiceInfo, clientName: e.target.value })}
@@ -440,6 +455,7 @@ const App = () => {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">住所</label>
               <input
+                key="senderName"
                 type="text"
                 value={invoiceInfo.clientAddress}
                 onChange={(e) => setInvoiceInfo({ ...invoiceInfo, clientAddress: e.target.value })}
@@ -464,6 +480,7 @@ const App = () => {
           <div className="flex gap-4 items-center">
             <label className="text-sm font-medium text-gray-700">対象月:</label>
             <input
+              key="senderName"
               type="month"
               value={selectedMonth}
               onChange={(e) => setSelectedMonth(e.target.value)}
