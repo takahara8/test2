@@ -284,190 +284,195 @@ const App = () => {
     );
   };
 
-  const SettingsTab = () => {
-    return (
-      <div className="space-y-6">
+const SettingsTab = () => {
+  const [tempContract, setTempContract] = useState(contract);
+  const [tempInvoiceInfo, setTempInvoiceInfo] = useState(invoiceInfo);
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    setContract(tempContract);
+    setInvoiceInfo(tempInvoiceInfo);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-800">設定</h2>
-        
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4">契約情報</h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">月額報酬（円）</label>
-              <input
-                key="number"
-                type="number"
-                value={contract.monthlyFee}
-                onChange={(e) => setContract({ ...contract, monthlyFee: parseInt(e.target.value) || 0 })}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">基準時間（時間/月）</label>
-              <input
-                key="number"
-                type="number"
-                value={contract.baseHours}
-                onChange={(e) => setContract({ ...contract, baseHours: parseInt(e.target.value) || 0 })}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-              />
-            </div>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <p className="text-sm text-blue-800">
-                時給換算: ¥{Math.round(contract.monthlyFee / contract.baseHours).toLocaleString()}
-              </p>
-            </div>
+        <button
+          onClick={handleSave}
+          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+        >
+          {saved ? '保存しました✓' : '保存'}
+        </button>
+      </div>
+      
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="text-lg font-semibold mb-4">契約情報</h3>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">月額報酬（円）</label>
+            <input
+              type="number"
+              value={tempContract.monthlyFee}
+              onChange={(e) => setTempContract({ ...tempContract, monthlyFee: parseInt(e.target.value) || 0 })}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">基準時間（時間/月）</label>
+            <input
+              type="number"
+              value={tempContract.baseHours}
+              onChange={(e) => setTempContract({ ...tempContract, baseHours: parseInt(e.target.value) || 0 })}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            />
+          </div>
+          <div className="bg-blue-50 p-4 rounded-lg">
+            <p className="text-sm text-blue-800">
+              時給換算: ¥{Math.round(tempContract.monthlyFee / tempContract.baseHours).toLocaleString()}
+            </p>
           </div>
         </div>
+      </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4">請求者情報（あなた）</h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">氏名</label>
-              <input
-                key="text"
-                type="text"
-                value={invoiceInfo.senderName}
-                onChange={(e) => setInvoiceInfo({ ...invoiceInfo, senderName: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">住所</label>
-              <input
-                key="text"
-                type="text"
-                value={invoiceInfo.senderAddress}
-                onChange={(e) => setInvoiceInfo({ ...invoiceInfo, senderAddress: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">電話番号</label>
-                <input
-                  key="tel"
-                  type="tel"
-                  value={invoiceInfo.senderPhone}
-                  onChange={(e) => setInvoiceInfo({ ...invoiceInfo, senderPhone: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">メールアドレス</label>
-                <input
-                  key="email"
-                  type="email"
-                  value={invoiceInfo.senderEmail}
-                  onChange={(e) => setInvoiceInfo({ ...invoiceInfo, senderEmail: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-            </div>
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="text-lg font-semibold mb-4">請求者情報（あなた）</h3>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">氏名</label>
+            <input
+              type="text"
+              value={tempInvoiceInfo.senderName}
+              onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, senderName: e.target.value })}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            />
           </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4">振込先情報</h3>
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">銀行名</label>
-                <input
-                  key="senderName"
-                  type="text"
-                  value={invoiceInfo.bankName}
-                  onChange={(e) => setInvoiceInfo({ ...invoiceInfo, bankName: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">支店名</label>
-                <input
-                  key="text"
-                  type="text"
-                  value={invoiceInfo.branchName}
-                  onChange={(e) => setInvoiceInfo({ ...invoiceInfo, branchName: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">口座種別</label>
-                <select
-                  value={invoiceInfo.accountType}
-                  onChange={(e) => setInvoiceInfo({ ...invoiceInfo, accountType: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-                >
-                  <option value="普通">普通</option>
-                  <option value="当座">当座</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">口座番号</label>
-                <input
-                  key="text"
-                  type="text"
-                  value={invoiceInfo.accountNumber}
-                  onChange={(e) => setInvoiceInfo({ ...invoiceInfo, accountNumber: e.target.value })}
-                  className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">口座名義</label>
-              <input
-                key="text"
-                type="text"
-                value={invoiceInfo.accountHolder}
-                onChange={(e) => setInvoiceInfo({ ...invoiceInfo, accountHolder: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-              />
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">住所</label>
+            <input
+              type="text"
+              value={tempInvoiceInfo.senderAddress}
+              onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, senderAddress: e.target.value })}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            />
           </div>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold mb-4">請求先情報（クライアント）</h3>
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">会社名</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">電話番号</label>
               <input
-                key="text"
-                type="text"
-                value={invoiceInfo.clientCompany}
-                onChange={(e) => setInvoiceInfo({ ...invoiceInfo, clientCompany: e.target.value })}
+                type="tel"
+                value={tempInvoiceInfo.senderPhone}
+                onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, senderPhone: e.target.value })}
                 className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">担当者名</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">メールアドレス</label>
               <input
-                key="text"
-                type="text"
-                value={invoiceInfo.clientName}
-                onChange={(e) => setInvoiceInfo({ ...invoiceInfo, clientName: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">住所</label>
-              <input
-                key="text"
-                type="text"
-                value={invoiceInfo.clientAddress}
-                onChange={(e) => setInvoiceInfo({ ...invoiceInfo, clientAddress: e.target.value })}
+                type="email"
+                value={tempInvoiceInfo.senderEmail}
+                onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, senderEmail: e.target.value })}
                 className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
               />
             </div>
           </div>
         </div>
       </div>
-    );
-  };
 
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="text-lg font-semibold mb-4">振込先情報</h3>
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">銀行名</label>
+              <input
+                type="text"
+                value={tempInvoiceInfo.bankName}
+                onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, bankName: e.target.value })}
+                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">支店名</label>
+              <input
+                type="text"
+                value={tempInvoiceInfo.branchName}
+                onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, branchName: e.target.value })}
+                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">口座種別</label>
+              <select
+                value={tempInvoiceInfo.accountType}
+                onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, accountType: e.target.value })}
+                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+              >
+                <option value="普通">普通</option>
+                <option value="当座">当座</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">口座番号</label>
+              <input
+                type="text"
+                value={tempInvoiceInfo.accountNumber}
+                onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, accountNumber: e.target.value })}
+                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">口座名義</label>
+            <input
+              type="text"
+              value={tempInvoiceInfo.accountHolder}
+              onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, accountHolder: e.target.value })}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-lg shadow p-6">
+        <h3 className="text-lg font-semibold mb-4">請求先情報（クライアント）</h3>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">会社名</label>
+            <input
+              type="text"
+              value={tempInvoiceInfo.clientCompany}
+              onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, clientCompany: e.target.value })}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">担当者名</label>
+            <input
+              type="text"
+              value={tempInvoiceInfo.clientName}
+              onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, clientName: e.target.value })}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">住所</label>
+            <input
+              type="text"
+              value={tempInvoiceInfo.clientAddress}
+              onChange={(e) => setTempInvoiceInfo({ ...tempInvoiceInfo, clientAddress: e.target.value })}
+              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
   const InvoiceTab = () => {
     const stats = calculateInvoiceAmount(selectedMonth);
     const invoiceDate = new Date().toISOString().split('T')[0];
