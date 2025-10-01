@@ -640,7 +640,7 @@ const App = () => {
           </div>
         </nav>
 
-        <main>
+        <main key={activeTab}>
           {activeTab === 'dashboard' && <DashboardTab />}
           {activeTab === 'timesheet' && <TimesheetTab />}
           {activeTab === 'settings' && <SettingsTab />}
